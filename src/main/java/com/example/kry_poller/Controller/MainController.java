@@ -58,7 +58,7 @@ public class MainController {
     @PostMapping("/{userId}/updateservice/{token}")
     public ServiceResponse updateService(@PathVariable("userId") Long userId, @Valid @RequestBody Services services, @PathVariable("token")String userToken){
         if(userService.tokenValidation(userToken, userId))
-            return servicesService.registerService(services, userId);
+            return servicesService.updateService(services, userId);
        else return new ServiceResponse(0L, null, null, 0, "FALSE");
     }
 

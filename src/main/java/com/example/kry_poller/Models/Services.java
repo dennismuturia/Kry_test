@@ -15,6 +15,8 @@ public class Services {
     private String url;
     private int servicePort;
     private String isActive;
+    @ManyToOne
+    private Users user;
 
     public Services(Long serviceId, String serviceName, String url){
         this.serviceId = serviceId;

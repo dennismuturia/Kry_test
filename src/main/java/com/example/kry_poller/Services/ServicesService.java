@@ -5,6 +5,8 @@ import com.example.kry_poller.Models.Services;
 import com.example.kry_poller.Models.Users;
 import com.example.kry_poller.Repositories.ServicesRepository;
 import com.example.kry_poller.Repositories.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ public class ServicesService {
     private ServicesRepository repository;
 
     private UserRepository userRepository;
+    static Logger log = LoggerFactory.getLogger(ServicesService.class);
 
     public ServicesService(ServicesRepository repository, UserRepository userRepository){
         this.repository = repository;
@@ -22,6 +25,12 @@ public class ServicesService {
     }
 
     public List<Services>getAllServices(Long userId){
+        userRepository.findServicesByUser(userId).forEach(y -> {
+            log.info("");
+        });
+
+
+
         return userRepository.findServicesByUser(userId);
     }
 
@@ -51,6 +60,7 @@ public class ServicesService {
 
     public boolean deleteService(Services services){
         Services services1 = repository.getById(services.getServiceId());
+        //repository.deleteRelationship(services1.getServiceId());
         repository.delete(services1);
         return !repository.findServicesByServiceName(services.getServiceName()).isPresent();
     }

@@ -14,7 +14,7 @@ public class Users {
     private Long userId;
     private String email;
     private String password;
-    @OneToMany
+    @OneToMany(mappedBy = "user", cascade=CascadeType.ALL, orphanRemoval=true, fetch=FetchType.LAZY)
     private List<Services> services;
     @Column(columnDefinition="TEXT")
     private String privateToken;
